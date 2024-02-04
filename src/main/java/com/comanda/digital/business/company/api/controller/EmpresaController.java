@@ -1,0 +1,38 @@
+package com.comanda.digital.business.company.api.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.comanda.digital.business.company.api.dto.filterQuery.EmpresaDTO;
+import com.comanda.digital.business.company.service.EmpresaService;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping(value = "/v1/empresa", produces = MediaType.APPLICATION_JSON_VALUE)
+public class EmpresaController {
+ 
+	@Autowired
+	private EmpresaService empresaService;
+
+	@PostMapping
+	public EmpresaDTO criar(@Valid @RequestBody EmpresaDTO empresaDTO) {
+
+		return empresaService.criar(empresaDTO);
+	}
+ 
+	@GetMapping("/id/{id}")
+	public EmpresaDTO getEmpresa(@PathVariable(required = true)  Long id) {
+		return empresaService.buscarId(id);
+
+	}
+	
+	 
+
+}
